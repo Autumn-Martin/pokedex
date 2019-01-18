@@ -19,14 +19,15 @@ class PokemonIndex extends Component{
       loading: true
     });
     fetch('http://pokeapi.co/api/v2/pokemon?limit=151')
-    .then(response=>response.json())
-    .then(data=>{
-      this.setState({
-        species: data.results,
-        loading: true,
-        fetched: true
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(`Loaded all ${data.results.length} pokemon!`)
+        this.setState({
+          species: data.results,
+          loading: true,
+          fetched: true
+        });
       });
-    });
   }
   render() {
     const {fetched, loading, species} = this.state;
@@ -41,7 +42,7 @@ class PokemonIndex extends Component{
         </div>;
     } else if(loading && !fetched) {
       content =
-        <p class='loading-animation'>
+        <p className='loading-animation'>
           Looking for pokemon
         </p>;
     } else {
